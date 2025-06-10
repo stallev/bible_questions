@@ -81,3 +81,15 @@ if (orderForm) {
     await handleFormData(data, orderForm);
   });
 }
+
+// --- Автоматическое изменение высоты textarea ---
+const textarea = document.getElementById('message');
+if (textarea) {
+  textarea.addEventListener('input', function () {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
+  // Инициализация при загрузке (если есть текст)
+  textarea.style.overflow = 'hidden';
+  textarea.style.height = textarea.scrollHeight + 'px';
+}
