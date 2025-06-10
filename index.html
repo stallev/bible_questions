@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вопрос по Библии</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Задайте вопрос по Библии</h1>
+      <p class="subtitle">Мы ответим на ваш вопрос в Telegram</p>
+    </header>
+    <main>
+      <form id="orderForm" class="form">
+        <label for="message" class="form-label">Ваш вопрос</label>
+        <textarea id="message" name="message" class="form-textarea" rows="5" required placeholder="Введите ваш вопрос..."></textarea>
+        <button type="submit" class="form-button">Отправить</button>
+      </form>
+      <div id="form-success" class="form-success" style="display:none;">Спасибо! Ваш вопрос отправлен.</div>
+      <div id="form-error" class="form-error" style="display:none;">Произошла ошибка. Попробуйте ещё раз.</div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

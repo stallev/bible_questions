@@ -25,8 +25,8 @@ function sanitizePhone(phone) {
 }
 
 function sendDataToTelegram(message) {
-  const botToken = "7311009873:AAEzy-c1HrbXlvmcOJxCnDeyUZN0ApIzypE";
-  const chatId = "-4914480902";
+  const botToken = "7536370506:AAEPOydxeenoerj2vvf4IMNMwWL690nWTMI";
+  const chatId = "-1001563047379";
   const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
   const params = {
       chat_id: chatId,
@@ -46,33 +46,38 @@ async function handleFormData(data, form) {
   // Санитация данных
   const sanitizedData = {
     message: sanitizeInput(data.message)
-};
+  };
 
-const message = `\n📩 Новый вопрос:\n<b>Сообщение:</b> ${sanitizedData.message}`;
-console.log('message', message);
+  const message = `\n📩 Новый вопрос:\n<b>Сообщение:</b> ${sanitizedData.message}`;
+  console.log('message', message);
 
-try {
-    const result = await sendDataToTelegram(message);
-    console.log('result', result);
-    if (result.ok) {
-        alert('Спасибо! Ваш вопрос принят. Мы свяжемся с вами в ближайшее время.');
-        closeModal();
-        form.reset();
-    } else {
-        alert('Ошибка при отправке сообщения. Пожалуйста, попробуйте ещё раз.');
-    }
-} catch (error) {
-    console.error('Ошибка при отправке формы:', error);
-    alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.');
-}
+  const successDiv = document.getElementById('form-success');
+  const errorDiv = document.getElementById('form-error');
+  if (successDiv) successDiv.style.display = 'none';
+  if (errorDiv) errorDiv.style.display = 'none';
+
+  try {
+      const result = await sendDataToTelegram(message);
+      console.log('result', result);
+      if (result.ok) {
+          if (successDiv) successDiv.style.display = 'block';
+          form.reset();
+      } else {
+          if (errorDiv) errorDiv.style.display = 'block';
+      }
+  } catch (error) {
+      console.error('Ошибка при отправке формы:', error);
+      if (errorDiv) errorDiv.style.display = 'block';
+  }
 }
 
 // --- Обработчик отправки формы ---
-orderForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const formData = new FormData(orderForm);
-  const data = Object.fromEntries(formData.entries());
-  
-  await handleFormData(data, orderForm);
-});
+const orderForm = document.getElementById('orderForm');
+if (orderForm) {
+  orderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(orderForm);
+    const data = Object.fromEntries(formData.entries());
+    await handleFormData(data, orderForm);
+  });
+}
